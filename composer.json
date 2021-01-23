@@ -1,0 +1,65 @@
+{
+    "name": "project-zer0/pz-symfony",
+    "type": "pz-module",
+    "description": "A pz module for PHP Symfony Framework",
+    "keywords": [
+        "project-zer0",
+        "pz",
+        "pz-module",
+        "module",
+        "symfony"
+    ],
+    "homepage": "https://project-zer0.io",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aurimas Niekis",
+            "email": "aurimas@niekis.lt",
+            "homepage": "https://aurimas.niekis.lt"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "project-zer0/pz": "^0",
+        "project-zer0/pz-docker-compose": "^0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "friendsofphp/php-cs-fixer": "^2",
+        "infection/infection": "^0",
+        "vimeo/psalm": "^4",
+        "psalm/plugin-symfony": "^2.1"
+    },
+    "config": {
+        "platform": {
+            "php": "8.0"
+        },
+        "platform-check": true
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "XDEBUG_MODE=coverage phpunit --coverage-html build/html/",
+        "cs-check": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix --dry-run --diff --diff-format udiff",
+        "cs-fix": "PHP_CS_FIXER_IGNORE_ENV=1 php-cs-fixer fix",
+        "test-ci": "XDEBUG_MODE=coverage phpunit --coverage-text --coverage-clover=coverage.clover",
+        "test-psalm": "psalm",
+        "test-infection": "infection --min-msi=48 --threads=4 --only-covered",
+        "ci-run": ["@cs-check", "@test-psalm"]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "pz_class": "\\ProjectZer0\\PzSymfony\\PzSymfonyModule"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProjectZer0\\PzSymfony\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ProjectZer0\\PzSymfony\\Tests\\": "tests"
+        }
+    }
+}
