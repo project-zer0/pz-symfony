@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ProjectZer0\PzSymfony;
 
-use LogicException;
 use ProjectZer0\Pz\Config\PzModuleConfigurationInterface;
 use ProjectZer0\Pz\Console\Command\ProcessCommand;
 use ProjectZer0\Pz\Module\PzModule;
@@ -22,18 +21,11 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class PzSymfonyModule extends PzModule
 {
-    private ?string $cwd = null;
-
     public function getCommands(): array
     {
         return [
-            new class($this->getCWD()) extends ProcessCommand {
+            new class() extends ProcessCommand {
                 protected static $defaultName = 'symfony:console';
-
-                public function __construct(private string $cwd)
-                {
-                    parent::__construct();
-                }
 
                 protected function configure(): void
                 {
@@ -84,7 +76,6 @@ class PzSymfonyModule extends PzModule
 
     public function boot(ProjectZer0Toolkit $toolkit): void
     {
-        $this->cwd = $toolkit->getCurrentDirectory();
     }
 
     /**
@@ -117,14 +108,5 @@ class PzSymfonyModule extends PzModule
     public function getName(): string
     {
         return 'symnfony';
-    }
-
-    private function getCWD(): string
-    {
-        if (null === $this->cwd) {
-            throw new LogicException('PzModule was not initialized correctly');
-        }
-
-        return $this->cwd;
     }
 }
