@@ -44,7 +44,8 @@ class PzSymfonyModule extends PzModule
                             InputOption::VALUE_REQUIRED,
                             'Docker Compose environment file defined in ".pz.yaml"',
                             'dev',
-                        );
+                        )
+                        ->ignoreHelp();
                 }
 
                 public function getProcess(
